@@ -247,6 +247,7 @@ body {
   .reviews-container ul li {
     font-size: 20px;
     margin: 25px 0;
+    text-align: left;
   }
 }
 
