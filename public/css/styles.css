@@ -327,3 +327,76 @@ body {
   color: #e74c3c;
   padding: 20px;
 }
+
+.error-img {
+  width: 300px;
+  height: auto;
+}
+
+.error-p {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Individual Vehicle Details */
+
+.individual-vehicle-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 50px;
+}
+
+.image-container {
+  width: 100%;
+  max-width: 100%; 
+  height: auto; 
+  overflow: hidden;
+}
+
+.image-container img{
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.information-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.information-container .title {
+  font-size: 25px;
+  padding-top: 0;
+}
+
+.information-container p {
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0;
+  padding: 20px 10px;
+}
+
+.description,
+.color,
+.miles {
+  font-weight: normal;
+}
+
+.information-container > :nth-child(even) {
+  background-color: #eee;
+}
+
+@media only screen and (min-width: 768px) {
+  .individual-vehicle-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .information-container {
+    padding-left: 0;
+  }
+}
+
+.error-link {
+  text-decoration: underline;
+}

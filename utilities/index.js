@@ -57,4 +57,44 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
+
+/* **************************************
+* Build the Individual Vehicle view HTML
+* ************************************ */
+
+Util.buildVehicleContent = async function(data) {
+  function addComma(number) {
+    const numberToString = number.toString()
+    if (numberToString > 2) {
+      return numberToString.slice(0,2) + "," + numberToString.slice(2);
+    }
+  }
+  let content // Inicializamos la variable content
+  if (data.length > 0) {
+    const makeAndModel = `${data[0].inv_make} ${data[0].inv_model}`;
+    content = '<div class="individual-vehicle-container">'
+    content += '<div class="image-container"><img src="' + data[0].inv_thumbnail 
+    + '" alt="Image of ' + makeAndModel
+    + ' on CSE Motors" /></div>';
+    content += '<div class="information-container">';
+    content += '<p class="title">' + makeAndModel + '</p>';
+    content += '<p>' + 'Price: $' + '<span class="price">' + addComma(data[0].inv_price) + '</span>' + '</p>';
+    content += '<p>' + 'Description: ' + '<span class="description">' + data[0].inv_description + '</span>' + '</p>';
+    content += '<p>' + 'Color: ' + '<span class="color">' + data[0].inv_color + '</span>' + '</p>';
+    content += '<p>' + 'Miles: ' + '<span class="miles">' + addComma(data[0].inv_miles) + '</span>' + '</p>';
+    content += '</div>'
+    content += '</div>';
+  } else {
+    content = '<p class="notice">Sorry, no details could be found.</p>'; // Reemplazamos directamente el contenido
+  }
+  return content;
+}
+
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
 module.exports = Util;
