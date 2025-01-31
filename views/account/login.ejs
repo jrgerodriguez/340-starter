@@ -1,0 +1,44 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else { res.redirect('/') } %>
+
+<%- messages() %>
+
+
+<div class="login-container">
+    <form class="login-form">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="account_email" required>
+
+      <label for="password">Password</label>
+      <p class="requirement">
+        * Password must be minimum of 12 characters, 1 capital letter, 1 number
+        and 1 special character.
+      </p>
+      <input type="password" id="password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+
+      <span id="pswBtn">Show Password</span>
+
+      <button type="submit">Login</button>
+
+      <p class="signup-link">Don't have an account? <a href="/account/register">Sign up here</a></p>
+    </form>
+  </div>
+
+  <script>
+    const showPassword = () => {
+      const pwdBtn = document.querySelector("#pswBtn");
+      pwdBtn.addEventListener("click", function () {
+        const pwdInput = document.querySelector("#password");
+        let type = pwdInput.getAttribute("type");
+        if (type === "password") {
+          pwdInput.setAttribute("type", "text");
+          pwdBtn.innerHTML = "Hide Password";
+        } else {
+          pwdInput.setAttribute("type", "password");
+          pwdBtn.innerHTML = "Show Password";
+        }
+      });
+    };
+    showPassword();
+  </script>

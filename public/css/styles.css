@@ -322,10 +322,12 @@ body {
 }
 
 .notice {
-  text-align: center;
+  text-align: left;
   font-size: 18px;
   color: #e74c3c;
   padding: 20px;
+  list-style: none;
+  font-weight: bold;
 }
 
 .error-img {
@@ -400,3 +402,89 @@ body {
 .error-link {
   text-decoration: underline;
 }
+
+/* Login and Registration form */
+
+.login-container,
+.registration-container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.login-form,
+.registration-form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px;
+  background-color: #5c6bc0;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3f51b5;
+}
+
+.signup-link {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.signup-link a {
+  color: #5c6bc0;
+  text-decoration: none;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+.requirement {
+  color: red;
+  font-weight: bold;
+}
+
+#pswBtn {
+  cursor: pointer;
+  color: #fff;
+  background-color: #f44336;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 20px;
+  width: 50%;
+}
+
+#pswBtn:hover {
+  background-color: #e53935;
+}
+
+
+
