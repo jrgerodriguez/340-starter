@@ -2,12 +2,15 @@
 <h1><%= title %></h1>
 <% } else { res.redirect('/') } %>
 
+
 <% if (errors) { %>
   <ul class="notice">
- <% errors.array().forEach(error => { %>
-   <li><%= error.msg %></li>
-<%  }) %>
- </ul>
+      <% errors.array().forEach(error => { %>
+          <% if (error.msg !== "Invalid value") { %>
+              <li><%= error.msg %></li>
+          <% } %>
+      <% }) %>
+  </ul>
 <% } %>
 
 <div class="registration-container">
@@ -15,13 +18,13 @@
 
   <form class="registration-form" action="/account/register" method="post">
     <label for="first-name">First Name</label>
-    <input type="text" id="first-name" name="account_firstname" required />
+    <input type="text" id="first-name" name="account_firstname" required value="<%= locals.account_firstname %>"/>
 
     <label for="last-name">Last Name</label>
-    <input type="text" id="last-name" name="account_lastname" required />
+    <input type="text" id="last-name" name="account_lastname" required value="<%= locals.account_lastname %>"/>
 
     <label for="email">Email Address</label>
-    <input type="email" id="email" name="account_email" required />
+    <input type="email" id="email" name="account_email" required value="<%= locals.account_email %>"/>
 
     <label for="password">Password</label>
     <p class="requirement">

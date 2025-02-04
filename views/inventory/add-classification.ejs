@@ -1,0 +1,22 @@
+<h1><%= title %></h1>
+
+<% if (errors) { %>
+  <ul class="notice">
+      <% errors.array().forEach(error => { %>
+          <% if (error.msg !== "Invalid value") { %>
+              <li><%= error.msg %></li>
+          <% } %>
+      <% }) %>
+  </ul>
+<% } %>
+
+<div class="form-container">
+    <p class="requirement">*FIELD IS REQUIRED.</p>
+    <p class="requirement">NAMES MUST BE ALPHABETIC CHARACTERS ONLY</p>
+  
+    <form class="form" action="/inv/add-classification" method="post">
+      <label for="classificationName">Classification Name</label>
+      <input type="text" pattern="^\S+$" id="classificationName" name="classification_name" required value="<%= locals.classification_name %>"/>
+      <button type="submit">Add Classification</button>
+    </form>
+  </div>

@@ -1,0 +1,62 @@
+<h1><%= title %></h1>
+
+<% if (errors) { %>
+  <ul class="notice">
+      <% errors.array().forEach(error => { %>
+          <% if (error.msg !== "Invalid value") { %>
+              <li><%= error.msg %></li>
+          <% } %>
+      <% }) %>
+  </ul>
+<% } %>
+
+<div class="form-container">
+  <p class="requirement">*ALL FIELDS IS REQUIRED.</p>
+
+  <form class="form" action="/inv/add-inventory" method="post">
+
+    <label for="classificationList">Classification</label>
+    <%- dropDownClassificationList %>
+
+    <label for="invMake">Make</label>
+    <input type="text" id="invMake" name="inv_make" required value="<%= locals.inv_make %>"/>
+
+    <label for="invModel">Model</label>
+    <input type="text" id="invModel" name="inv_model" required value="<%= locals.inv_model %>"/>
+
+    <label for="invYear">Year</label>
+    <input type="number" id="invYear" name="inv_year" required value="<%= locals.inv_year %>"/>
+
+    <label for="invDescription">Description</label>
+    <textarea name="inv_description" id="invDescription" rows="5" required><%= locals.inv_description %></textarea>
+
+    <label for="invImagePath">Image Path</label>
+    <input
+      type="text"
+      id="invImagePath"
+      name="inv_image"
+      required
+      value="/images/vehicles/no-image.png"
+    />
+
+    <label for="invThumbnailPath">Thumbnail Path</label>
+    <input
+      type="text"
+      id="invThumbnailPath"
+      name="inv_thumbnail"
+      required
+      value="/images/vehicles/no-image.png"
+    />
+
+    <label for="invPrice">Price</label>
+    <input type="number" id="invPrice" name="inv_price" required value="<%= locals.inv_price %>"/>
+
+    <label for="invMiles">Miles</label>
+    <input type="number" id="invMiles" name="inv_miles" required value="<%= locals.inv_miles %>"/>
+
+    <label for="invColor">Color</label>
+    <input type="text" id="invColor" name="inv_color" required value="<%= locals.inv_color %>"/>
+
+    <button type="submit">Add Vehicle</button>
+  </form>
+</div>
