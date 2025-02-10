@@ -1,5 +1,7 @@
 const invModel = require("../models/inventory-model");
 const Util = {};
+const jwt = require("jsonwebtoken");
+require("dotenv").config()
 
 /* ************************
  * Constructs the nav HTML unordered list
@@ -122,5 +124,42 @@ Util.buildClassificationList = async function (classification_id = null) {
  * General Error Handling
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
+Util.checkJWTToken = (req, res, next) => { //THIS FUNCTION ASSIGNS A NUMBER 1 TO LOGGEING IN CASE THERE IS A VALID TOKEN, IF NOT THIS FUNCTION DOES NOT STOP THE PROCESS, LET'S THE FLOW CONTINUES BUT IF THE ROUTE HAS THE MIDDLEWARE checkLogin, THE FLOW WILL BE STOPPED BY THAT MIDDLEWARE IF THAT NUMBER 1 IS NOT PRESENT. IN A FEW WORDS THIS FUNCTION KIND OF LET'S checkLogin KNOW WHO HAS A VALID TOKEN.
+  if (req.cookies.jwt) {
+   jwt.verify( //if the cookie exists, uses the jsonwebtoken "verify" function to check the validity of the token. The function takes three arguments: 1) the token (from the cookie), 2) the secret value stored as an environment variable, and 3) a callback function.
+    req.cookies.jwt,
+    process.env.ACCESS_TOKEN_SECRET,
+    function (err, accountData) { //the callback function (which returns an error or the account data from the token payload).
+     if (err) {
+      req.flash("Please log in")
+      res.clearCookie("jwt")
+      return res.redirect("/account/login")
+     }
+     res.locals.accountData = accountData
+     res.locals.loggedin = 1
+     next()
+    })
+  } else {
+   next()
+  }
+ }
+
+
+ /* ****************************************
+ *  Check Login
+ * ************************************ */
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+ }
 
 module.exports = Util;

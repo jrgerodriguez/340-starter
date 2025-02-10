@@ -36,5 +36,25 @@ router.post(
     utilities.handleErrors(invController.registerNewInventory)
 );
 
+/** This is to display the list of items */
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+/** Get the inventory ID to Modify/Edit an item */
+router.get("/edit/:inventory_id", utilities.handleErrors(invController.buildEditView))
+
+/** Modify/Edit an item */
+router.post("/update/", 
+    mgmtValidate.newInventoryRules(),
+    mgmtValidate.checkUpdateData,
+    utilities.handleErrors(invController.updateInventory))
+
+/** Get the inventory ID to Delete an item */
+router.get("/delete/:inventory_id", utilities.handleErrors(invController.buildDeleteView))
+
+/** Process the deletion of an item */
+router.post("/delete/", 
+    utilities.handleErrors(invController.deleteInventoryElement))
+
+
 module.exports = router;
 

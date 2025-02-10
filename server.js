@@ -17,6 +17,8 @@ const inventoryRoute = require("./routes/inventoryRoute");
 const accountRoute = require("./routes/accountRoute");
 const utilities = require("./utilities/");
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
+
 
 /* ***********************
  * Middleware
@@ -44,6 +46,12 @@ app.use(function(req, res, next){
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 /** This last line tells the express application to read and work with data sent via a URL as well as from a form, stored in the request object's body. The "extended: true" object is a configuration that allows rich objects and arrays to be parsed. */
+
+//Cookie Parser
+app.use(cookieParser())
+
+app.use(utilities.checkJWTToken) //This will apply verification for all routes, however checkJWTToken will apply the next() function is the token is not present, this way users will be able to go to routes that don't have the middleware included (checkLogin), they will be able to see the home page for example without having a token but if they have the middleware, they will be directed to ("/account/login")
+
 
 /* ***********************
  * View Engine and Templates

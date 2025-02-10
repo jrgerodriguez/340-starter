@@ -1,5 +1,7 @@
 <h1><%= title %></h1>
 
+<%- messages() %>
+
 <% if (errors) { %>
   <ul class="notice">
       <% errors.array().forEach(error => { %>
@@ -13,7 +15,7 @@
 <div class="form-container">
   <p class="requirement">*ALL FIELDS ARE REQUIRED.</p>
 
-  <form class="form" action="/inv/add-inventory" method="post">
+  <form class="form" id="updateForm" action="/inv/update" method="post">
 
     <label for="classificationList">Classification</label>
     <%- dropDownClassificationList %>
@@ -57,6 +59,12 @@
     <label for="invColor">Color</label>
     <input type="text" id="invColor" name="inv_color" required value="<%= locals.inv_color %>"/>
 
-    <button type="submit">Add Vehicle</button>
+    <button type="submit" disabled>Edit Vehicle</button>
+
+    <input type="hidden" name="inv_id"
+    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+    <% } %>>
   </form>
 </div>
+
+<script src="../../js/inv-update.js"></script>

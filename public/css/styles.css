@@ -57,6 +57,17 @@ body {
   }
 }
 
+h2 {
+  margin: 0;
+}
+
+.center-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 /******* HEADER ***************/
 
 #top-header {
@@ -540,6 +551,76 @@ textarea:focus {
 
 select {
   padding: 10px;
+}
+
+/* Table */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+@media only screen and (min-width: 768px) {
+  table {
+    width: 75%;
+  }
+}
+
+thead {
+  background-color: #5c6bc0; 
+  color: white;
+}
+
+th {
+  padding: 12px;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+td {
+  padding: 12px;
+  text-align: left;
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.modify-btn, .delete-btn {
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.modify-btn {
+  background-color: #4CAF50; 
+  color: white;
+}
+
+.modify-btn:hover {
+  background-color: #45a049;
+}
+
+.delete-btn {
+  background-color: #f44336; 
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #e53935;
+}
+
+#inventoryDisplay {
+  padding: 20px;
 }
 
 
