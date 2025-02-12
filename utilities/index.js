@@ -174,7 +174,10 @@ Util.checkLogin = (req, res, next) => {
   } if (res.locals.loggedin === 1 && res.locals.accountData.account_type === "Client") {
     req.flash("notice", "You should be Admin or Employee to access.")
     return res.redirect("/account/login")
-  }
+  } if (res.locals.loggedin !== 1) {
+  req.flash("notice", "Please Login.")
+  return res.redirect("/account/login");
+}
  }
 
 
