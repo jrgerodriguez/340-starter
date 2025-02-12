@@ -11,14 +11,16 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 //Route for each car based on inventory id, this will be used by buildInventoryID to get the parameter
 router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByInventoryId));
 
-/** Route for management */
-router.get("/", utilities.handleErrors(invController.buildManagement));
+/** Routes for management */
+router.get("/", utilities.validateAccountType, utilities.handleErrors(invController.buildManagement));
+
+router.get("/go-to-invmgmt", utilities.validateAccountType, utilities.handleErrors(invController.buildManagement));
 
 /** Route for add new classification */
-router.get("/add-classification", utilities.handleErrors(invController.buildNewClassification));
+router.get("/add-classification", utilities.validateAccountType, utilities.handleErrors(invController.buildNewClassification));
 
 /** Route for add new inventory */
-router.get("/add-inventory", utilities.handleErrors(invController.buildNewInventory));
+router.get("/add-inventory", utilities.validateAccountType, utilities.handleErrors(invController.buildNewInventory));
 
 /** Post to add new classification */
 router.post(
@@ -40,7 +42,7 @@ router.post(
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 /** Get the inventory ID to Modify/Edit an item */
-router.get("/edit/:inventory_id", utilities.handleErrors(invController.buildEditView))
+router.get("/edit/:inventory_id", utilities.validateAccountType, utilities.handleErrors(invController.buildEditView))
 
 /** Modify/Edit an item */
 router.post("/update/", 
@@ -49,7 +51,7 @@ router.post("/update/",
     utilities.handleErrors(invController.updateInventory))
 
 /** Get the inventory ID to Delete an item */
-router.get("/delete/:inventory_id", utilities.handleErrors(invController.buildDeleteView))
+router.get("/delete/:inventory_id", utilities.validateAccountType, utilities.handleErrors(invController.buildDeleteView))
 
 /** Process the deletion of an item */
 router.post("/delete/", 

@@ -57,6 +57,16 @@ body {
   }
 }
 
+.announcement {
+  background-color: green;
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+  display: inline;
+  font-family: "Trebuchet MS", sans-serif;
+  padding: 0 5px;
+}
+
 h2 {
   margin: 0;
 }
@@ -81,12 +91,25 @@ h2 {
   font-weight: bold;
 }
 
+.tools-container {
+  display: flex;
+  gap: 5px;
+}
+
+@media (max-width: 768px) {
+  .tools-container {
+    flex-direction: column;
+    margin-top: 10px;
+  }
+}
+
 .tools {
   padding: 10px 30px;
   background-color: var(--main-accent);
   color: black;
   font-weight: bold;
   text-transform: uppercase;
+  text-align: center;
 }
 
 /******* NAVIGATION ***************/
@@ -623,4 +646,43 @@ a {
   padding: 20px;
 }
 
+/* Account Management */
+
+.account-welcome-container {
+display: flex;
+flex-direction: column;
+}
+
+.account-welcome-container h3 {
+  margin-top: 25px;
+  margin-bottom: 0;
+}
+
+.link-paragraph {
+  font-size: 17px;
+  margin: 0; 
+  color: blue;
+}
+
+.link-paragraph a {
+  color: inherit; 
+  text-decoration: underline;
+}
+
+fieldset {
+  border: 2px solid #5c6bc0;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+legend {
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 0 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin-left: 10px;
+}
 

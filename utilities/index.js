@@ -2,6 +2,7 @@ const invModel = require("../models/inventory-model");
 const Util = {};
 const jwt = require("jsonwebtoken");
 require("dotenv").config()
+const accModel = require("../models/account-model");
 
 /* ************************
  * Constructs the nav HTML unordered list
@@ -142,9 +143,11 @@ Util.checkJWTToken = (req, res, next) => { //THIS FUNCTION ASSIGNS A NUMBER 1 TO
      }
      res.locals.accountData = accountData
      res.locals.loggedin = 1
+
      next()
     })
   } else {
+    res.locals.loggedin = 0
    next()
   }
  }
@@ -161,5 +164,18 @@ Util.checkLogin = (req, res, next) => {
     return res.redirect("/account/login")
   }
  }
+
+ /* ****************************************
+ *  Check Login
+ * ************************************ */
+ Util.validateAccountType = (req, res, next) => {
+  if (res.locals.loggedin === 1 && (res.locals.accountData.account_type === "Employee" || res.locals.accountData.account_type === "Admin")) {
+    next()
+  } if (res.locals.loggedin === 1 && res.locals.accountData.account_type === "Client") {
+    req.flash("notice", "You should be Admin or Employee to access.")
+    return res.redirect("/account/login")
+  }
+ }
+
 
 module.exports = Util;

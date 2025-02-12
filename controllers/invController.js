@@ -202,7 +202,7 @@ invCont.updateInventory = async function(req, res, next) {
 
   if(updateResult) {
     const elementName = `${inv_make} ${inv_model}`
-    req.flash("notice", `The new ${elementName} was successfully updated.`);
+    req.flash("notice", `The ${elementName} was successfully updated.`);
     res.redirect("/inv/")
   } else {
     let dropDownClassificationList = await utilities.buildClassificationList(classification_id);

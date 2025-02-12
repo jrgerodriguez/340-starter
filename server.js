@@ -71,6 +71,7 @@ app.use("/inv", inventoryRoute);
 app.use("/error-link", utilities.handleErrors());
 app.get("/", utilities.handleErrors(baseController.buildHome));
 
+
 // File Not Found Route - must be last route in list, everytime there is an error, "next" will be used and the error hhandler will be triggered
 app.use(async (req, res, next) => {
   next({

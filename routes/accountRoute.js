@@ -26,10 +26,35 @@ router.post(
     utilities.handleErrors(accountController.accountLogin)
 )
 
+// Build the account management view
 router.get(
     "/",
     utilities.checkLogin,
     utilities.handleErrors(accountController.buildAccountManagement) //Since this is the default location for account, it will applye the function to build the view
 )
+
+// Process the Update Account Information View
+router.get("/update-account/:account_id", utilities.handleErrors(accountController.buildUpdateAccountInfo))
+
+
+// Process the account information update
+router.post(
+    "/process-account-update",
+    regValidate.accountInfoUpdateRules(),
+    regValidate.checkUpdateData,
+    utilities.handleErrors(accountController.processAccountUpdate)
+)
+
+// Process the password update
+router.post(
+    "/process-password-update",
+    regValidate.passwordUpdateRules(),
+    regValidate.checkUpdateData,
+    utilities.handleErrors(accountController.processPasswordUpdate)
+)
+
+// Process Logout
+router.get("/logout", utilities.handleErrors(accountController.processLogout))
+
 
 module.exports = router;

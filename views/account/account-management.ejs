@@ -1,3 +1,15 @@
+<p class="announcement">YOU'RE LOGGED IN</p>
+
 <h1><%= title %></h1>
 
 <%- messages() %>
+
+<h2 class="welcome-message-account-management">Welcome <%= locals.account_firstname || accountData.account_firstname %></h2>
+<p class="link-paragraph"><a href="/account/update-account/<%= accountData.account_id %>">Update Account Information</a></p>
+
+<% if(accountData.account_type === "Admin" || accountData.account_type === "Employee") { %>
+<div class="account-welcome-container">
+<h3>Inventory Management</h3>
+<p class="link-paragraph"><a href="/inv/">Go there</a></p>
+</div>
+<% } %>

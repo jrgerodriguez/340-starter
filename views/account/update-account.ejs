@@ -1,0 +1,87 @@
+<h1><%= title %></h1>
+
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="notice">
+      <% errors.array().forEach(error => { %>
+          <% if (error.msg !== "Invalid value") { %>
+              <li><%= error.msg %></li>
+          <% } %>
+      <% }) %>
+  </ul>
+<% } %>
+
+  <!-- Update Account Form -->
+    
+<div class="registration-container">
+    <p class="requirement">* ALL FIELDS ARE REQUIRED.</p>
+    <fieldset>
+    <legend>Account Update</legend>
+    <form class="registration-form" action="/account/process-account-update" method="post">
+
+      <label for="first-name">First Name</label>
+      <input type="text" id="first-name" name="account_firstname" required value="<%= locals.account_firstname %>"/>
+  
+      <label for="last-name">Last Name</label>
+      <input type="text" id="last-name" name="account_lastname" required value="<%= locals.account_lastname %>"/>
+  
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="account_email" required value="<%= locals.account_email %>"/>
+  
+      <button type="submit">Update Account</button>
+
+      <input type="hidden" name="account_id"
+      <% if(locals.account_id) { %> value="<%= locals.account_id %>"
+      <% } %>>
+
+    </form>
+    </fieldset>
+  </div>
+
+  <!-- Update Password Form -->
+
+  <div class="registration-container">
+    <fieldset>
+    <legend>Password Update</legend>
+    <form class="registration-form" action="/account/process-password-update" method="post">
+
+        <label for="password">Password</label>
+        <p class="requirement">
+            * By entering a password it will change the current password3
+          </p>
+        <p class="requirement">
+          * Password must be minimum of 12 characters, 1 capital letter, 1 number
+          and 1 special character.
+        </p>
+        <input type="password" id="password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"/>
+    
+        <span id="pswBtn">Show Password</span>
+    
+        <button type="submit">Update Password</button>
+
+        <input type="hidden" name="account_id"
+        <% if(locals.account_id) { %> value="<%= locals.account_id %>"
+        <% } %>>
+    </form>
+
+    </fieldset>
+  </div>
+  
+  <script>
+    const showPassword = () => {
+      const pwdBtn = document.querySelector("#pswBtn");
+      pwdBtn.addEventListener("click", function () {
+        const pwdInput = document.querySelector("#password");
+        let type = pwdInput.getAttribute("type");
+        if (type === "password") {
+          pwdInput.setAttribute("type", "text");
+          pwdBtn.innerHTML = "Hide Password";
+        } else {
+          pwdInput.setAttribute("type", "password");
+          pwdBtn.innerHTML = "Show Password";
+        }
+      });
+    };
+    showPassword();
+  </script>
