@@ -56,5 +56,17 @@ router.post(
 // Process Logout
 router.get("/logout", utilities.handleErrors(accountController.processLogout))
 
+// Build comments section
+router.get("/comments/:account_id", utilities.validateAccountType, utilities.handleErrors(accountController.buildCommentsView))
+
+// Register New Comment
+router.post("/save-comment", 
+    regValidate.newCommentRules(),
+    regValidate.checkNewCommentData,
+    utilities.handleErrors(accountController.registerNewComment))
+
+// Eliminate Comment
+router.get("/eliminate-comment/:comment_id", utilities.handleErrors(accountController.eliminateComment))
+
 
 module.exports = router;

@@ -175,4 +175,5 @@ validate.checkUpdateData = async (req, res, next) => {
   next()
 }
 
+
 module.exports = validate

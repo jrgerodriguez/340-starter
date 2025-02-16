@@ -204,4 +204,40 @@ return [
   ]
 }
 
+/*  **********************************
+ *  New Comment Validation Rules
+ * ********************************* */
+validate.newCommentRules = () => {
+  return [
+    body("comment")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Submit a comment, field cannot be empty."),
+  ];
+};
+
+/* ******************************
+ * Check data and return errors or continue to register comment
+ * ***************************** */
+
+validate.checkNewCommentData = async (req, res, next) => {
+  let errors = []
+  errors = validationResult(req)
+  if(!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    const { account_id } = req.body;
+    const data = await accountModel.getAllComments()
+    const comments = await utilities.displayComments(data, account_id) 
+    res.render("./account/comments", {
+      title: "Comments",
+      nav,
+      errors,
+      comments
+    })
+    return   
+  }
+  next()
+}
+
 module.exports = validate

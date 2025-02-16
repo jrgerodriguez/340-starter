@@ -504,6 +504,11 @@ button:hover {
   font-weight: bold;
 }
 
+.instruction {
+  font-weight: bold;
+  font-size: 20px;
+}
+
 #pswBtn {
   cursor: pointer;
   color: #fff;
@@ -686,3 +691,107 @@ legend {
   margin-left: 10px;
 }
 
+/* COMMENTS */
+
+.comments-link {
+  margin-top: 25px;
+}
+
+.comments-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 10px;
+}
+
+.comments-container .comments-form,
+.comments-container .comments-list {
+  flex: 1;
+}
+
+.comments-ul {
+  list-style: none;
+  padding: 0;
+}
+
+.comments-element {
+  margin-top: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 5px 10px;
+  border-radius: 8px;
+  background-color: #f7f7f7;
+}
+
+.comments-content {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.comments-name {
+  font-size: 0.9rem;
+  color: #555;
+  font-weight: bold;
+  margin: 0;
+}
+
+.comments-date {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .comments-container {
+    flex-direction: row;
+    padding: 0 30px;
+    gap: 50px;
+  }
+
+  .comments-list {
+    max-height: 500px;
+    overflow-y: auto;
+  }
+}
+
+.small-button, 
+.confirm-deletion, 
+.cancel-deletion {
+  display: inline-block;
+  background-color: #5c6bc0;;  
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.small-button:hover,
+.confirm-deletion:hover,
+.cancel-deletion:hover {
+  background-color: #3f51b5;  
+}
+
+.confirm-deletion, 
+.cancel-deletion {
+  margin-top: 5px;
+}
+
+.small-buttons-container p {
+  margin-bottom: 0;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.small-buttons-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.small-buttons-container.open {
+  max-height: 300px;
+}

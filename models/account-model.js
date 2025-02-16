@@ -84,4 +84,37 @@ async function updatePassword(account_password, account_id) {
 }
 
 
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccount, updatePassword}
+/* *****************************
+* Get All Comments
+* ***************************** */
+async function getAllComments() {
+  return await pool.query(
+    "SELECT comment_id, comment, comments.account_id, to_char(date, 'Mon DD YYYY') AS date, account_firstname, account_lastname FROM public.comments JOIN public.account  ON comments.account_id = account.account_id ORDER BY comment_id DESC"
+  );
+}
+
+/* *****************************
+*   Register new account
+* *************************** */
+async function registerComment(comment, account_id){
+  try {
+    const sql = "INSERT INTO comments (comment, account_id) VALUES ($1, $2) RETURNING *"
+    return await pool.query(sql, [comment, account_id])
+  } catch (error) {
+    return error.message
+  }
+}
+
+/* *****************************
+*   Eliminate account
+* *************************** */
+async function deleteComment(comment_id){
+  try {
+    const sql = "DELETE FROM comments WHERE comment_id = $1"
+    return await pool.query(sql, [comment_id])
+  } catch (error) {
+    return error.message
+  }
+}
+
+module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccount, updatePassword, getAllComments, registerComment, deleteComment}

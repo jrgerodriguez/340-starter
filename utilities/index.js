@@ -178,7 +178,35 @@ Util.checkLogin = (req, res, next) => {
   req.flash("notice", "Please Login.")
   return res.redirect("/account/login");
 }
- }
+}
+
+/* ****************************************
+ *  Make all Comments View
+ * ************************************ */
+
+Util.displayComments = async function(data, account_id) {
+  let list = `<ul class="comments-ul">`
+  data.rows.forEach((row) => {
+    list += `<li class="comments-element">
+    <p class="comments-content">${row.comment}</p>
+    <p class="comments-name">Created By: ${row.account_firstname} ${row.account_lastname}</p>
+    <p class="comments-date">${row.date}</p>`
+    if (parseInt(account_id) === row.account_id) {
+    list += `<a href="#" class="small-button">Eliminate</a>`;
+    list += `
+    <div class="small-buttons-container">
+      <p>Are you sure?</p>
+      <div>
+        <a href="/account/eliminate-comment/${row.comment_id}" class="confirm-deletion">Yes, delete it</a>
+        <a href="#" class="cancel-deletion">Cancel</a>
+      </div>
+    </div>`;
+    }
+    list += `</li>`; 
+  });
+  list += "</ul>";
+  return list;
+};
 
 
 module.exports = Util;

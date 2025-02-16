@@ -230,11 +230,88 @@ async function processPasswordUpdate(req, res) {
  * ************************************ */
 
 async function processLogout(req, res) {
-  const nav = await utilities.getNav();
   res.clearCookie("jwt", { path: "/" });
   res.locals.loggedin = 0;
-  res.render("index", { title: "Home", nav });
+  res.redirect("/");
 }
 
+  /* ****************************************
+ *  Build Comments View
+ * ************************************ */
+async function buildCommentsView(req, res) {
+  const account_id = req.params.account_id
+  let nav = await utilities.getNav()
+  const data = await accountModel.getAllComments()
+  const comments = await utilities.displayComments(data, account_id) 
+  res.render("./account/comments", {
+    title: "Comments",
+    nav,
+    errors:null,
+    comments
+  }
+  )
+} 
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, buildUpdateAccountInfo, processAccountUpdate, processPasswordUpdate, processLogout };
+/* ****************************************
+ *  Register New Comment
+ * ************************************ */
+  async function registerNewComment(req, res) {
+    let nav = await utilities.getNav();
+
+    const { comment, account_id } = req.body;
+
+    const regResult = await accountModel.registerComment(comment, account_id);
+    
+  
+    if (regResult) {
+      const data = await accountModel.getAllComments()
+      const comments = await utilities.displayComments(data, account_id) 
+      req.flash(
+        "notice",
+        "Your comment has been successfully added."
+      );
+      res.status(201).render("./account/comments", {
+        title: "Comments",
+        nav,
+        errors:null,
+        comments
+      })
+    } else {
+      const data = await accountModel.getAllComments()
+      const comments = await utilities.displayComments(data, account_id) 
+      req.flash("notice", "Sorry, the registration failed.");
+      res.status(501).render("./account/comments", {
+        title: "Comments",
+        nav,
+        errors:null,
+        comments
+      });
+    }
+  }
+
+  /* ****************************************
+ *  Eliminate Comment
+ * ************************************ */
+    async function eliminateComment(req, res) {
+      
+      let nav = await utilities.getNav();
+  
+      const comment_id = req.params.comment_id;
+
+      const delResult = await accountModel.deleteComment(comment_id);
+    
+      if (delResult) {
+        req.flash(
+          "notice",
+          "Your comment has been successfully eliminated."
+        );
+        return res.redirect("/account/")
+      } else {
+        req.flash("notice", "Sorry, the deletion failed, please try again.");
+        return res.redirect("/account/")
+      }
+    }
+
+
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, buildUpdateAccountInfo, processAccountUpdate, processPasswordUpdate, processLogout, buildCommentsView, registerNewComment, eliminateComment };

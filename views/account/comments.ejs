@@ -1,0 +1,57 @@
+<h1><%= title %></h1>
+
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="notice">
+      <% errors.array().forEach(error => { %>
+          <% if (error.msg !== "Invalid value") { %>
+              <li><%= error.msg %></li>
+          <% } %>
+      <% }) %>
+  </ul>
+<% } %>
+
+<div class="comments-container">
+
+  <!-- Form to submit a new comment -->
+
+  <div class="comments-form">
+
+    <p class="requirement">LEAVE A COMMENT THAT DESCRIBES WHAT HAS BEEN DONE OR CHANGED.</p>
+
+    <form class="form" action="/account/save-comment" method="post">
+
+    <label for="comment">Comment</label>
+    <textarea name="comment" id="comment" rows="5" required></textarea>
+
+    <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
+
+    <button type="submit">Save Comment</button>
+
+    </form>
+
+  </div>
+
+<!-- Comments -->
+
+  <div class="comments-list">
+    <%- comments -%>
+  </div>
+
+</div>
+
+<script>
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('small-button')) {
+        event.preventDefault(); 
+        event.target.nextElementSibling.classList.add('open'); 
+    }
+  
+    if (event.target.classList.contains('cancel-deletion')) {
+        event.preventDefault(); 
+        event.target.closest('.small-buttons-container').classList.remove('open'); 
+    }
+});
+
+</script>
