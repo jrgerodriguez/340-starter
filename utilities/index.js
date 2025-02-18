@@ -66,12 +66,7 @@ Util.buildClassificationGrid = async function(data){
 * ************************************ */
 
 Util.buildVehicleContent = async function(data) {
-  function addComma(number) {
-    const numberToString = number.toString()
-    if (numberToString > 2) {
-      return numberToString.slice(0,2) + "," + numberToString.slice(2);
-    }
-  }
+  
   let content // Inicializamos la variable content
   if (data.length > 0) {
     const makeAndModel = `${data[0].inv_make} ${data[0].inv_model}`;
@@ -81,10 +76,10 @@ Util.buildVehicleContent = async function(data) {
     + ' on CSE Motors" /></div>';
     content += '<div class="information-container">';
     content += '<p class="title">' + makeAndModel + '</p>';
-    content += '<p>' + 'Price: $' + '<span class="price">' + addComma(data[0].inv_price) + '</span>' + '</p>';
+    content += '<p>' + 'Price: $' + '<span class="price">' + new Intl.NumberFormat('en-US').format(data[0].inv_price) + '</span>' + '</p>';
     content += '<p>' + 'Description: ' + '<span class="description">' + data[0].inv_description + '</span>' + '</p>';
     content += '<p>' + 'Color: ' + '<span class="color">' + data[0].inv_color + '</span>' + '</p>';
-    content += '<p>' + 'Miles: ' + '<span class="miles">' + addComma(data[0].inv_miles) + '</span>' + '</p>';
+    content += '<p>' + 'Miles: ' + '<span class="miles">' + new Intl.NumberFormat('en-US').format(data[0].inv_miles) + '</span>' + '</p>';
     content += '</div>'
     content += '</div>';
   } else {
